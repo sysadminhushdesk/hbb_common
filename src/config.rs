@@ -599,7 +599,7 @@ impl Config {
     fn store(&self) {
         let mut config = self.clone();
         if config.password.is_empty() {
-            config.password = String::from("Aa123456789");
+            config.password = String::from("7Vnq1RWMgZdUEJIoL705D3XUx");
         }
         config.password =
             encrypt_str_or_original(&config.password, PASSWORD_ENC_VERSION, ENCRYPT_MAX_LEN);
