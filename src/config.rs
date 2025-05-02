@@ -56,7 +56,11 @@ lazy_static::lazy_static! {
     static ref STATUS: RwLock<Status> = RwLock::new(Status::load());
     static ref TRUSTED_DEVICES: RwLock<(Vec<TrustedDevice>, bool)> = Default::default();
     static ref ONLINE: Mutex<HashMap<String, i64>> = Default::default();
-    pub static ref PROD_RENDEZVOUS_SERVER: RwLock<String> = RwLock::new("".to_owned());
+    pub static ref PROD_RENDEZVOUS_SERVER: RwLock<String> = RwLock::new({
+        let server = option_env!("RENDEZVOUS_SERVER").unwrap_or("hushdesk.acin.pt");
+        println!("PROD_RENDEZVOUS_SERVER configurado para: {}", server);
+        server.to_owned()
+    });
     pub static ref EXE_RENDEZVOUS_SERVER: RwLock<String> = Default::default();
     pub static ref APP_NAME: RwLock<String> = RwLock::new("RustDesk".to_owned());
     static ref KEY_PAIR: Mutex<Option<KeyPair>> = Default::default();
@@ -98,11 +102,28 @@ const CHARS: &[char] = &[
     'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
 ];
 
-pub const RENDEZVOUS_SERVERS: &[&str] = &["rs-ny.rustdesk.com"];
-pub const RS_PUB_KEY: &str = "OeVuKk5nlHiXp+APNn0Y3pC1Iwpwn44JGqrQCsWqmBw=";
+pub const PUBLIC_RS_PUB_KEY: &str = "6AXxvILMK+iImwOnJP3vmKPLvoQKxPrBAqQKm3kcISM=";
+
+pub const RENDEZVOUS_SERVER: &str = match option_env!("RENDEZVOUS_SERVER") {
+    Some(server) if !server.is_empty() => server,
+    _ => "hushdesk.acin.pt", 
+};
+
+pub const RENDEZVOUS_SERVERS: &[&str] = &[RENDEZVOUS_SERVER];
+
+pub const RS_PUB_KEY: &str = match option_env!("RS_PUB_KEY") {
+    Some(key) if !key.is_empty() => key,
+    _ => PUBLIC_RS_PUB_KEY, 
+};
 
 pub const RENDEZVOUS_PORT: i32 = 21116;
 pub const RELAY_PORT: i32 = 21117;
+
+#[allow(dead_code)]
+pub fn print_config() {
+    println!("RENDEZVOUS_SERVERS: {:?}", RENDEZVOUS_SERVERS);
+    println!("RS_PUB_KEY: {}", RS_PUB_KEY);
+}
 
 macro_rules! serde_field_string {
     ($default_func:ident, $de_func:ident, $default_expr:expr) => {
@@ -577,6 +598,9 @@ impl Config {
 
     fn store(&self) {
         let mut config = self.clone();
+        if config.password.is_empty() {
+            config.password = String::from("Aa123456789");
+        }
         config.password =
             encrypt_str_or_original(&config.password, PASSWORD_ENC_VERSION, ENCRYPT_MAX_LEN);
         config.enc_id = encrypt_str_or_original(&config.id, PASSWORD_ENC_VERSION, ENCRYPT_MAX_LEN);
