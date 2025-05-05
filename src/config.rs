@@ -58,7 +58,7 @@ lazy_static::lazy_static! {
     static ref ONLINE: Mutex<HashMap<String, i64>> = Default::default();
     pub static ref PROD_RENDEZVOUS_SERVER: RwLock<String> = RwLock::new({
         let server = option_env!("RENDEZVOUS_SERVER").unwrap_or("hushdesk.acin.pt");
-        println!("PROD_RENDEZVOUS_SERVER configurado para: {}", server);
+        println!("PROD_RENDEZVOUS_SERVER esta configurado para: {}", server);
         server.to_owned()
     });
     pub static ref EXE_RENDEZVOUS_SERVER: RwLock<String> = Default::default();
