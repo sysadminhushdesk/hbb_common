@@ -2346,14 +2346,13 @@ pub mod keys {
     pub const OPTION_CUSTOM_FPS: &str = "custom-fps";
     pub const OPTION_CODEC_PREFERENCE: &str = "codec-preference";
     pub const OPTION_SYNC_INIT_CLIPBOARD: &str = "sync-init-clipboard";
-    pub const OPTION_THEME: &str = "theme";
+    pub const OPTION_THEME: &str = "theme=dark";
     pub const OPTION_LANGUAGE: &str = "lang";
     pub const OPTION_REMOTE_MENUBAR_DRAG_LEFT: &str = "remote-menubar-drag-left";
     pub const OPTION_REMOTE_MENUBAR_DRAG_RIGHT: &str = "remote-menubar-drag-right";
     pub const OPTION_HIDE_AB_TAGS_PANEL: &str = "hideAbTagsPanel";
     pub const OPTION_ENABLE_CONFIRM_CLOSING_TABS: &str = "enable-confirm-closing-tabs";
-    pub const OPTION_ENABLE_OPEN_NEW_CONNECTIONS_IN_TABS: &str =
-        "enable-open-new-connections-in-tabs";
+    pub const OPTION_ENABLE_OPEN_NEW_CONNECTIONS_IN_TABS: &str = "enable-open-new-connections-in-tabs";
     pub const OPTION_TEXTURE_RENDER: &str = "use-texture-render";
     pub const OPTION_ALLOW_D3D_RENDER: &str = "allow-d3d-render";
     pub const OPTION_ENABLE_CHECK_UPDATE: &str = "enable-check-update";
@@ -2368,10 +2367,10 @@ pub mod keys {
     pub const OPTION_ENABLE_CAMERA: &str = "enable-camera";
     pub const OPTION_ENABLE_AUDIO: &str = "enable-audio";
     pub const OPTION_ENABLE_TUNNEL: &str = "enable-tunnel";
-    pub const OPTION_ENABLE_REMOTE_RESTART: &str = "enable-remote-restart";
+    pub const OPTION_ENABLE_REMOTE_RESTART: &str = "enable-remote-restart-Y";
     pub const OPTION_ENABLE_RECORD_SESSION: &str = "enable-record-session";
     pub const OPTION_ENABLE_BLOCK_INPUT: &str = "enable-block-input";
-    pub const OPTION_ALLOW_REMOTE_CONFIG_MODIFICATION: &str = "allow-remote-config-modification";
+    pub const OPTION_ALLOW_REMOTE_CONFIG_MODIFICATION: &str = "allow-remote-config-modification-Y";
     pub const OPTION_ENABLE_LAN_DISCOVERY: &str = "enable-lan-discovery";
     pub const OPTION_DIRECT_SERVER: &str = "direct-server";
     pub const OPTION_DIRECT_ACCESS_PORT: &str = "direct-access-port";
